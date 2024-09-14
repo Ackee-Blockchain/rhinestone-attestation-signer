@@ -319,8 +319,8 @@ def test_default():
     actual_hash = keccak256(encoded_digest)
     summary.signature.hash = actual_hash
  
-    data = chain.accounts[0].sign(actual_hash)
-    
+    data = Account.from_key(chain.accounts[0].private_key).sign(actual_hash)  
+   
     r = data[:32]
     s = data[32:64]
     v = uint8(int(data[64]))
