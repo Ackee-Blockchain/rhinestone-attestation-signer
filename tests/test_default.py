@@ -175,7 +175,7 @@ class JsonGlobalAttributes:
             uint8(self.licensedModule),
             uint8(self.erc7562StorageCompliant),
             uint8(self.uninstallCleanUp),
-            # uint8(self.multichainCompatible) # 
+            uint8(self.multichainCompatible)
         ])        
 
 @dataclass
@@ -269,15 +269,17 @@ class Input:
     moduleAttributes: JsonModuleAttributes
     signature: Optional[Signature] = None                             
 
-@default_chain.connect()
-def test_default():
-    json_file_path = Path("attestation/example.json")
+
+        
+def sign_file(path):
+    print(path)
+    json_file_path = Path(path)
 
     with open(json_file_path, "r") as f:
-        data = json.load(f)
+        file_data = json.load(f)
 
     # Parse the JSON data into Python class objects
-    input_data = Input(**data)
+    input_data = Input(**file_data)
     
     # Access the parsed data
     structured_data = input_data
@@ -320,12 +322,50 @@ def test_default():
     summary.signature.hash = actual_hash
  
     data = Account.from_key(chain.accounts[0].private_key).sign(actual_hash)  
+    # print(chain.accounts[0].private_key.hex())
+    print("hash: ")
+    print(actual_hash.hex())
    
+    # print(chain.accounts[0].private_key.hex())
     r = data[:32]
     s = data[32:64]
     v = uint8(int(data[64]))
     v = uint8(v-27)
     summary.signature.signatureData = abi.encode_packed(r, s, v)
+    # summary.signature.signatureData = data
     print("signature: ")
     print(summary.signature.signatureData.hex())
+
+    # Step 2: Update only the signature and hash fields
+    file_data['signature']['signature'] = "0x" + summary.signature.signatureData.hex()
+    file_data['signature']['hash'] = "0x" + actual_hash.hex()
+
+    # Step 3: Write the updated data back to the JSON file
+    with open(Path("signed_" + path), 'w') as json_file:
+        json.dump(file_data, json_file, indent=2, ensure_ascii=False)
  
+ 
+@default_chain.connect()
+def test_default():
+    path = "attestations/ColdStorageFlashLoan.json"
+    files = [
+        # "AutoSavings.json",
+        "ColdstorageFlashLoan.json",
+        "HookMultiplexer.json",
+        "OwnableExecutor.json",
+        "RegistryHook.json",
+        # "ScheduledTransfers.json",
+        "ColdStorageHook.json",
+        "DeadmanSwitch.json",
+        "MultiFactor.json",
+        "OwnableValidator.json",
+        # "ScheduledOrders.json",
+        "SocialRecovery.json"
+    ]
+    
+    directory = "attestations/"
+    
+    for file in files:
+        path = directory + file
+        sign_file(path)
+        
