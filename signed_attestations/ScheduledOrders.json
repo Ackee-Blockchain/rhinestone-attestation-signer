@@ -1,14 +1,20 @@
 {
-  "title": "OwnableValidator",
+  "title": "ScheduledOrders",
   "signer": "0xa1E8F5D6cCd82f2a2aC4ca5df4D51c71e48a54d5",
   "auditor": {
     "name": "Ackee Blockchain",
     "uri": "https://ackee.xyz",
-    "authors": ["Štěpán Šonský", "Michal Převrátil", "Naoki Yoshida", "Jan Převrátil", "Josef Gattermayer, Ph.D."]
+    "authors": [
+      "Štěpán Šonský",
+      "Michal Převrátil",
+      "Naoki Yoshida",
+      "Jan Převrátil",
+      "Josef Gattermayer, Ph.D."
+    ]
   },
   "reportUrl": "https://github.com/Ackee-Blockchain/public-audit-reports/blob/master/2024/ackee-blockchain-rhinestone-core-modules-report.pdf",
   "moduleAttributes": {
-    "moduleAddress": "0x2483DA3A338895199E5e538530213157e931Bf06",
+    "moduleAddress": "0x136C4163A8Aba1c6cB5590b79Fd8d037d9CF455d",
     "globalAttributes": {
       "reentrancyProtection": true,
       "importantDataValidation": true,
@@ -23,16 +29,16 @@
       "multichainCompatible": false
     },
     "validatorAttributes": {
-      "unscopedValidator": true,
+      "unscopedValidator": false,
       "recoveryModule": false,
-      "multiplexer": true
+      "multiplexer": false
     },
     "executorAttributes": {
-      "handlesUserAssets": false,
+      "handlesUserAssets": true,
       "delegateCall": false,
-      "triggeredByAccount": false,
+      "triggeredByAccount": true,
       "triggeredByRelayer": false,
-      "deterministicExecution": false
+      "deterministicExecution": true
     },
     "fallbackAttributes": {
       "compatibilityFeature": false,
@@ -48,7 +54,7 @@
     "externalDependency": {
       "oracle": false,
       "bridges": false,
-      "dexs": false,
+      "dexs": true,
       "vaults": false,
       "registry": false,
       "lending": false,
@@ -56,11 +62,13 @@
       "governance": false,
       "privacy": false,
       "zkProvers": false,
-      "ercDeps": []
+      "ercDeps": [
+        20
+      ]
     }
   },
-  "signature":{
-    "hash":"0x000ec4c724a0b1ccc949ba4d3b966730241ec95a76f3f20c020fc4604f4b1400",
-    "signature":"0xa128624bbaae2c4debc956484fb66636f9be00ae24e325f46934fb7ab2cf1b3e5b06999d963fa1606d94a5684859795b7c03b91a50829c7708715ac27cd8d3a500"
+  "signature": {
+    "hash": "0x6bb87d20caa0634602cfc5f6f0b92873226ad729c333b25d9549c83ee5869604",
+    "signature": "0xb30e9915b66a5a2a8593445ea02215f78e73b0af5ae0d0299586450d5277e74a5c3185bf0c83f31523802aeefc960e2ef0c95ef696e7f71492364d53a2bb48c800"
   }
 }

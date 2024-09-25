@@ -13,7 +13,7 @@ class Auditor:
     name: str
     uri: str
     authors: List[str]
-    
+
 class ERC7579ModuleType(Enum):
     NONE = 0
     VALIDATOR = 1
@@ -23,18 +23,18 @@ class ERC7579ModuleType(Enum):
 
 @dataclass
 class ModuleTypeAttributes:
-    moduleType: ERC7579ModuleType 
+    moduleType: ERC7579ModuleType
     encodedAttributes: bytes
-    
+
 @dataclass
 class ModuleTypeAttributesData:
-    moduleType: uint8 
+    moduleType: uint8
     encodedAttributes: bytes
 
 @dataclass
 class ModuleAttributes:
     moduleAddress: Address
-    packedAttributes: bytes 
+    packedAttributes: bytes
     typeAttributes: List[ModuleTypeAttributes]
     packedExternalDependency: bytes
     ercDeps: List[uint16]
@@ -43,45 +43,45 @@ class ModuleAttributes:
 @dataclass
 class ModuleAttributesData:
     moduleAddress: Address
-    packedAttributes: bytes 
+    packedAttributes: bytes
     typeAttributes: List[ModuleTypeAttributesData]
     packedExternalDependency: bytes
     ercDeps: List[uint16]
-    
-    
+
+
 class SignatureType(Enum):
     NONE = 0
     SECP256K1 = 1
     ERC1271 = 2
 
-  
+
 @dataclass
 class Signature:
     sigType: SignatureType
     signer: Address
     signatureData: bytes
     hash: bytes32
-    
+
 @dataclass
 class SignatureData:
     sigType: uint8
     signer: Address
     signatureData: bytes
     hash: bytes32
-    
+
 @dataclass
 class AuditSummary:
     title: str
     auditor: Auditor
     module_attributes: ModuleAttributesData
     signature: SignatureData
-    
+
     @dataclass
     class Digest:
         title: str
         auditor: Auditor
         moduleAttributes: ModuleAttributes
-    
+
     def encode(self) -> bytes:
         data = self.Digest(
             title=self.title,
@@ -89,14 +89,14 @@ class AuditSummary:
             moduleAttributes=self.module_attributes
         )
         return abi.encode(data)
-  
+
 
 @dataclass
 class JsonValidatorAttributes:
     unscopedValidator: bool
     recoveryModule: bool
     multiplexer: bool
-    
+
     def pack(self) -> bytes:
         return bytes([
             uint8(self.unscopedValidator),
@@ -108,13 +108,13 @@ class JsonValidatorAttributes:
 class JsonFallbackAttributes:
     compatibilityFeature: bool
     callbacks: bool
-    
+
     def pack(self) -> bytes:
         return bytes([
             uint8(self.compatibilityFeature),
             uint8(self.callbacks)
         ])
-    
+
 @dataclass
 class JsonExecutorAttributes:
     handlesUserAssets: bool
@@ -122,7 +122,7 @@ class JsonExecutorAttributes:
     triggeredByAccount: bool
     triggeredByRelayer: bool
     deterministicExecution: bool
-    
+
     def pack(self) -> bytes:
         return bytes([
             uint8(self.handlesUserAssets),
@@ -131,7 +131,7 @@ class JsonExecutorAttributes:
             uint8(self.triggeredByRelayer),
             uint8(self.deterministicExecution)
         ])
-    
+
 @dataclass
 class JsonHookAttributes:
     defaultAllow: bool
@@ -139,7 +139,7 @@ class JsonHookAttributes:
     accessControl: bool
     moduleControl: bool
     userControl: bool
-    
+
     def pack(self) -> bytes:
         return bytes([
             uint8(self.defaultAllow),
@@ -148,7 +148,7 @@ class JsonHookAttributes:
             uint8(self.moduleControl),
             uint8(self.userControl)
         ])
-    
+
 @dataclass
 class JsonGlobalAttributes:
     reentrancyProtection: bool
@@ -176,7 +176,7 @@ class JsonGlobalAttributes:
             uint8(self.erc7562StorageCompliant),
             uint8(self.uninstallCleanUp),
             uint8(self.multichainCompatible)
-        ])        
+        ])
 
 @dataclass
 class JsonExternalDependency:
@@ -191,7 +191,7 @@ class JsonExternalDependency:
     privacy: bool
     zkProvers: bool
     ercDeps: List[int]
-    
+
     def pack(self) -> bytes:
         return bytes([
             uint8(self.oracle),
@@ -205,22 +205,22 @@ class JsonExternalDependency:
             uint8(self.privacy),
             uint8(self.zkProvers)
         ])
-             
+
 @dataclass
 class ModuleAttributes:
     moduleAddress: Address
-    packedAttributes: bytes 
+    packedAttributes: bytes
     typeAttributes: List[ModuleTypeAttributes]
     packedExternalDependency: bytes
-    ercDeps: List[uint16]   
+    ercDeps: List[uint16]
 
 @dataclass
 class ModuleAttributesData:
     moduleAddress: Address
-    packedAttributes: bytes 
+    packedAttributes: bytes
     typeAttributes: List[ModuleTypeAttributesData]
     packedExternalDependency: bytes
-    ercDeps: List[uint16]     
+    ercDeps: List[uint16]
 
 @dataclass
 class JsonModuleAttributes:
@@ -231,7 +231,7 @@ class JsonModuleAttributes:
     fallbackAttributes: JsonFallbackAttributes
     hookAttributes: JsonHookAttributes
     externalDependency: JsonExternalDependency
-    
+
     def encode(self) -> ModuleAttributesData:
         assert isinstance(self.moduleAddress, Address)
         return ModuleAttributesData(
@@ -258,7 +258,7 @@ class JsonModuleAttributes:
             packedExternalDependency=self.externalDependency.pack(),
             ercDeps=self.externalDependency.ercDeps
         )
-        
+
 
 @dataclass
 class Input:
@@ -267,10 +267,10 @@ class Input:
     reportUrl: str
     signer: Address
     moduleAttributes: JsonModuleAttributes
-    signature: Optional[Signature] = None                             
+    signature: Optional[Signature] = None
 
 
-        
+
 def sign_file(path):
     print(path)
     json_file_path = Path(path)
@@ -280,7 +280,7 @@ def sign_file(path):
 
     # Parse the JSON data into Python class objects
     input_data = Input(**file_data)
-    
+
     # Access the parsed data
     structured_data = input_data
     structured_data.signer = Address(structured_data.signer)
@@ -291,42 +291,41 @@ def sign_file(path):
     structured_data.moduleAttributes.fallbackAttributes = JsonFallbackAttributes(**structured_data.moduleAttributes.fallbackAttributes)
     structured_data.moduleAttributes.hookAttributes = JsonHookAttributes(**structured_data.moduleAttributes.hookAttributes)
     structured_data.moduleAttributes.externalDependency = JsonExternalDependency(**structured_data.moduleAttributes.externalDependency)
-    
+
     structured_data.auditor = Auditor(**structured_data.auditor)
-    
+
     structured_data.moduleAttributes.globalAttributes = JsonGlobalAttributes(**structured_data.moduleAttributes.globalAttributes)
-        
-    
+
+
     structured_sig=Signature(
         sigType=SignatureType.SECP256K1,
         signer=structured_data.signer,
-        signatureData=b'', 
+        signatureData=b'',
         hash=bytes(32)
     )
-    
-    
+
+
     summary: AuditSummary = AuditSummary(
         title=input_data.title,
         auditor=structured_data.auditor,
         module_attributes=structured_data.moduleAttributes.encode(),
         signature=SignatureData(
             sigType=uint8(structured_sig.sigType.value),
-            signer=structured_sig.signer, 
-            signatureData=structured_sig.signatureData, 
-            hash=structured_sig.hash 
+            signer=structured_sig.signer,
+            signatureData=structured_sig.signatureData,
+            hash=structured_sig.hash
         )
     )
-    
+
     encoded_digest = summary.encode()
     actual_hash = keccak256(encoded_digest)
     summary.signature.hash = actual_hash
- 
-    data = Account.from_key(chain.accounts[0].private_key).sign(actual_hash)  
-    # print(chain.accounts[0].private_key.hex())
+
+    data = Account.from_key(chain.accounts[0].private_key).sign(actual_hash)
+
     print("hash: ")
     print(actual_hash.hex())
-   
-    # print(chain.accounts[0].private_key.hex())
+
     r = data[:32]
     s = data[32:64]
     v = uint8(int(data[64]))
@@ -343,29 +342,28 @@ def sign_file(path):
     # Step 3: Write the updated data back to the JSON file
     with open(Path("signed_" + path), 'w') as json_file:
         json.dump(file_data, json_file, indent=2, ensure_ascii=False)
- 
- 
+
+
 @default_chain.connect()
 def test_default():
     path = "attestations/ColdStorageFlashLoan.json"
     files = [
-        # "AutoSavings.json",
-        "ColdstorageFlashLoan.json",
-        "HookMultiplexer.json",
-        "OwnableExecutor.json",
-        "RegistryHook.json",
+        "AutoSavings.json",
+        # "ColdstorageFlashLoan.json",
+        # "HookMultiplexer.json",
+        # "OwnableExecutor.json",
+        # "RegistryHook.json",
         # "ScheduledTransfers.json",
-        "ColdStorageHook.json",
-        "DeadmanSwitch.json",
-        "MultiFactor.json",
+        # "ColdStorageHook.json",
+        # "DeadmanSwitch.json",
+        # "MultiFactor.json",
         "OwnableValidator.json",
-        # "ScheduledOrders.json",
-        "SocialRecovery.json"
+        "ScheduledOrders.json",
+        # "SocialRecovery.json"
     ]
-    
+
     directory = "attestations/"
-    
+
     for file in files:
         path = directory + file
         sign_file(path)
-        

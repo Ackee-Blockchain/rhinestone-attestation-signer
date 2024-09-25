@@ -1,14 +1,20 @@
 {
-  "title": "OwnableValidator",
+  "title": "AutoSavings",
   "signer": "0xa1E8F5D6cCd82f2a2aC4ca5df4D51c71e48a54d5",
   "auditor": {
     "name": "Ackee Blockchain",
     "uri": "https://ackee.xyz",
-    "authors": ["Štěpán Šonský", "Michal Převrátil", "Naoki Yoshida", "Jan Převrátil", "Josef Gattermayer, Ph.D."]
+    "authors": [
+      "Štěpán Šonský",
+      "Michal Převrátil",
+      "Naoki Yoshida",
+      "Jan Převrátil",
+      "Josef Gattermayer, Ph.D."
+    ]
   },
   "reportUrl": "https://github.com/Ackee-Blockchain/public-audit-reports/blob/master/2024/ackee-blockchain-rhinestone-core-modules-report.pdf",
   "moduleAttributes": {
-    "moduleAddress": "0x2483DA3A338895199E5e538530213157e931Bf06",
+    "moduleAddress": "0x7EC6793a7c737f63098c415cED68939Ea6EcC606",
     "globalAttributes": {
       "reentrancyProtection": true,
       "importantDataValidation": true,
@@ -23,9 +29,9 @@
       "multichainCompatible": false
     },
     "validatorAttributes": {
-      "unscopedValidator": true,
+      "unscopedValidator": false,
       "recoveryModule": false,
-      "multiplexer": true
+      "multiplexer": false
     },
     "executorAttributes": {
       "handlesUserAssets": false,
@@ -48,19 +54,21 @@
     "externalDependency": {
       "oracle": false,
       "bridges": false,
-      "dexs": false,
-      "vaults": false,
+      "dexs": true,
+      "vaults": true,
       "registry": false,
       "lending": false,
       "liquidityProvision": false,
-      "governance": false,
+      "governance": true,
       "privacy": false,
       "zkProvers": false,
-      "ercDeps": []
+      "ercDeps": [
+        20
+      ]
     }
   },
-  "signature":{
-    "hash":"0x000ec4c724a0b1ccc949ba4d3b966730241ec95a76f3f20c020fc4604f4b1400",
-    "signature":"0xa128624bbaae2c4debc956484fb66636f9be00ae24e325f46934fb7ab2cf1b3e5b06999d963fa1606d94a5684859795b7c03b91a50829c7708715ac27cd8d3a500"
+  "signature": {
+    "hash": "0x7655e13196af8cc24e2968688e8f982ec228133905fd1c71f354937c36890066",
+    "signature": "0x75b9cf252d3449857b4acc2489622513e13da62d3e2d2147216097dd549db3bd18622008626636e5809d53fde2083defd3697fa6583ab690b1f99a8ff29864ee00"
   }
 }
