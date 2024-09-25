@@ -349,17 +349,18 @@ def test_default():
     path = "attestations/ColdStorageFlashLoan.json"
     files = [
         "AutoSavings.json",
-        # "ColdstorageFlashLoan.json",
-        # "HookMultiplexer.json",
-        # "OwnableExecutor.json",
-        # "RegistryHook.json",
-        # "ScheduledTransfers.json",
-        # "ColdStorageHook.json",
-        # "DeadmanSwitch.json",
-        # "MultiFactor.json",
+        "ColdstorageFlashLoan.json",
+        "HookMultiplexer.json",
+        "OwnableExecutor.json",
+        "RegistryHook.json",
+        "ScheduledTransfers.json",
+        "ColdStorageHook.json",
+        "DeadmanSwitch.json",
+        "MultiFactor.json",
         "OwnableValidator.json",
         "ScheduledOrders.json",
-        # "SocialRecovery.json"
+        "ScheduledTransfers.json",
+        "SocialRecovery.json"
     ]
 
     directory = "attestations/"
