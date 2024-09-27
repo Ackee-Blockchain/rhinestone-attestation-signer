@@ -8,7 +8,7 @@
   },
   "reportUrl": "https://github.com/Ackee-Blockchain/public-audit-reports/blob/master/2024/ackee-blockchain-rhinestone-core-modules-report.pdf",
   "moduleAttributes": {
-    "moduleAddress": "0x136C4163A8Aba1c6cB5590b79Fd8d037d9CF455d",
+    "moduleAddress": "0x40dc90D670C89F322fa8b9f685770296428DCb6b",
     "globalAttributes": {
       "reentrancyProtection": true,
       "importantDataValidation": true,
