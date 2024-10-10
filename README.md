@@ -6,12 +6,14 @@ This repository serves the signature of Rhinestone Attestation Module Registry f
 
 ## Setup
 
-Specify private key in the `test/test_default.py` (Replace `chain.accounts[0].private_key`).
 
-
+First of all import the account into the wake.
 ```
-data = Account.from_key(chain.accounts[0].private_key).sign(actual_hash)  
+wake accounts import signer
 ```
 
 
-And run `wake test`
+And run the script to generate attestation jsons with hash and signature.
+```
+wake run
+```
