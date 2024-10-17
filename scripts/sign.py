@@ -338,11 +338,13 @@ def sign_file(path, acc: Account):
     file_data['signature']['signature'] = "0x" + summary.signature.signatureData.hex()
     file_data['signature']['hash'] = "0x" + actual_hash.hex()
 
+    file_path = Path("signed_" + path)
+    import os
+    os.makedirs(file_path.parent, exist_ok=True)
     # Step 3: Write the updated data back to the JSON file
-    with open(Path("signed_" + path), 'w') as json_file:
+    with open(file_path, 'w') as json_file:
         json.dump(file_data, json_file, indent=2, ensure_ascii=False)
 
-@default_chain.connect()
 def main():
     directory = "attestations/"
     files = [
