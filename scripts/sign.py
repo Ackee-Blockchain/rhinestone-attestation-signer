@@ -1,6 +1,7 @@
 from wake.deployment import *
 from .util import sign_file
 
+
 def main():
     directory = "attestations/"
     files = [
