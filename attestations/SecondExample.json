@@ -1,14 +1,14 @@
 {
-  "title": "FoobarModule",
-  "signer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "title": "SecondFooBarModule",
+  "signer": "0xffffffffffffffffffffffffffffffffffffffff",
   "auditor": {
-    "name": "Ackee",
+    "name": "AuditCorp",
     "uri": "http://audit.corp",
     "authors": ["auditor1", "auditor2"]
   },
   "reportUrl": "http://audit.corp/report",
   "moduleAttributes": {
-    "moduleAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "moduleAddress": "0xffffffffffffffffffffffffffffffffffffffff",
     "globalAttributes": {
       "reentrancyProtection": true,
       "importantDataValidation": true,
@@ -58,5 +58,9 @@
       "zkProvers": true,
       "ercDeps": [20, 1155]
     }
+  },
+  "signature": {
+    "hash": "0x0",
+    "signature": "0x0"
   }
 }

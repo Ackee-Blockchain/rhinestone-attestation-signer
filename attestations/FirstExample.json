@@ -1,0 +1,66 @@
+{
+  "title": "FoobarModule",
+  "signer": "0xffffffffffffffffffffffffffffffffffffffff",
+  "auditor": {
+    "name": "AuditCorp",
+    "uri": "http://audit.corp",
+    "authors": ["auditor1", "auditor2"]
+  },
+  "reportUrl": "http://audit.corp/report",
+  "moduleAttributes": {
+    "moduleAddress": "0xffffffffffffffffffffffffffffffffffffffff",
+    "globalAttributes": {
+      "reentrancyProtection": true,
+      "importantDataValidation": true,
+      "inputManipulationProtection": true,
+      "emitsEvents": true,
+      "moduleOwnerCantRug": false,
+      "upgradeable": false,
+      "pausable": false,
+      "licensedModule": true,
+      "erc7562StorageCompliant": true,
+      "uninstallCleanUp": true,
+      "multichainCompatible": true
+    },
+    "validatorAttributes": {
+      "unscopedValidator": true,
+      "recoveryModule": false,
+      "multiplexer": false
+    },
+    "executorAttributes": {
+      "handlesUserAssets": true,
+      "delegateCall": true,
+      "triggeredByAccount": true,
+      "triggeredByRelayer": false,
+      "deterministicExecution": true
+    },
+    "fallbackAttributes": {
+      "compatibilityFeature": false,
+      "callbacks": true
+    },
+    "hookAttributes": {
+      "defaultAllow": true,
+      "defaultDeny": false,
+      "accessControl": true,
+      "moduleControl": false,
+      "userControl": false
+    },
+    "externalDependency": {
+      "oracle": true,
+      "bridges": true,
+      "dexs": true,
+      "vaults": true,
+      "registry": true,
+      "lending": true,
+      "liquidityProvision": true,
+      "governance": true,
+      "privacy": true,
+      "zkProvers": true,
+      "ercDeps": [20, 1155]
+    }
+  },
+  "signature": {
+    "hash": "0x0",
+    "signature": "0x0"
+  }
+}
