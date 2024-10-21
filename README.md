@@ -6,14 +6,17 @@ This repository serves the signature of Rhinestone Attestation Module Registry f
 
 ## Setup
 
+1. Install Wake.
+```
+pip3 install eth-wake
+```
 
-First of all import the account into the wake.
+2. Import the account into Wake and follow the instructions.
 ```
 wake accounts import signer
 ```
 
-
-And run the script to generate attestation jsons with hash and signature.
+3. Run the script to generate attestation JSONs with hash and signature.
 ```
 wake run
 ```
